@@ -1,4 +1,4 @@
-import type UserEntity from '../../entities/UserEntity'
+import type UserEntity from '../entities/UserEntity'
 
 export interface IUserrepository {
   create: (user: UserEntity) => Promise<void>
