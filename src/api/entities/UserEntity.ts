@@ -1,7 +1,7 @@
 import { uuid } from 'uuidv4'
 
 class UserEntity {
-  public readonly id: string
+  public readonly id?: string
 
   public name: string
   public email: string
