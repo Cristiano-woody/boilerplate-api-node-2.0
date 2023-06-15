@@ -1,8 +1,8 @@
 import UserEntity from '../entities/UserEntity'
-import { type IUserrepository } from '../interfaces/IUserRepository'
+import { type IUserRepository } from '../interfaces/IUserRepository'
 import { PrismaClient } from '@prisma/client'
 
-class UserRepository implements IUserrepository {
+class UserRepository implements IUserRepository {
   private readonly prisma: PrismaClient
 
   constructor () {
@@ -11,13 +11,15 @@ class UserRepository implements IUserrepository {
 
   async create (user: UserEntity): Promise<void> {
     const userEntity = new UserEntity(user)
-    await this.prisma.user.create({
-      data: {
-        name: userEntity.name,
-        email: userEntity.email,
-        id: userEntity.id
-      }
-    })
+    if (userEntity.id !== undefined) {
+      await this.prisma.user.create({
+        data: {
+          name: userEntity.name,
+          email: userEntity.email,
+          id: userEntity.id
+        }
+      })
+    }
   }
 
   async getAll (): Promise<UserEntity[] | null> {
@@ -27,19 +29,29 @@ class UserRepository implements IUserrepository {
 
   async getUser (id: string): Promise<UserEntity | null> {
     const user = await this.prisma.user.findUnique({
-      where: { id }
+      // eslint-disable-next-line object-shorthand
+      where: { id: id }
     })
     return user
   }
 
-  async update (id: string): Promise<UserEntity | null> {
-    console.log('usuário modificado')
-    return null
+  async update (body: UserEntity): Promise<UserEntity | null> {
+    const user = await this.prisma.user.update({
+      where: { id: body.id },
+      data: {
+        name: body.name,
+        email: body.email
+      }
+    })
+    return user
   }
 
   async delete (id: string): Promise<UserEntity | null> {
-    console.log('usuário deletado')
-    return null
+    const user = await this.prisma.user.delete({
+      // eslint-disable-next-line object-shorthand
+      where: { id: id }
+    })
+    return user
   }
 }
 
