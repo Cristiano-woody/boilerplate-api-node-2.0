@@ -27,6 +27,7 @@
     "dotenv": "^16.1.4",
     "express": "^4.18.2",
     "prisma": "^4.15.0",
+    "uuid": "^9.0.0",
     "uuidv4": "^6.2.13"
   },
   "repository": "https://github.com/Cristiano-woody/boilerplate-api-node-2.0.git"
