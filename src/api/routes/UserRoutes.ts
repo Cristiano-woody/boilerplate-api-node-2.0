@@ -3,7 +3,7 @@ import { type Router, type Request, type Response } from 'express'
 import { type IUserController } from '../interfaces/IUserController'
 
 class UserRoutes {
-  readonly routes: Router
+  public readonly routes: Router
   constructor (readonly userController: IUserController) {
     //
     this.routes = express.Router()
