@@ -1,6 +1,5 @@
 import { type IUserService } from '../interfaces/IUserService'
 import { type IUserRepository } from '../interfaces/IUserRepository'
-import { type Request } from 'express'
 import UserEntity from '../entities/UserEntity'
 
 class UserService implements IUserService {
@@ -10,17 +9,16 @@ class UserService implements IUserService {
     this.userRepository = UserRepository
   }
 
-  async create (req: Request): Promise<void> {
-    if (req.body !== undefined && req.body !== null) {
-      const User = new UserEntity(req.body)
+  async create (user: UserEntity): Promise<void> {
+    if (user !== undefined && user !== null) {
+      const User = new UserEntity(user)
       await this.userRepository.create(User)
     } else {
       throw new Error('User body is missing')
     }
   }
 
-  async getUser (req: Request): Promise<UserEntity | undefined> {
-    const { id } = req.params
+  async getUser (id: string): Promise<UserEntity | undefined> {
     const user = await this.userRepository.getUser(id)
     if (user !== undefined && user !== null) {
       return user
@@ -36,9 +34,8 @@ class UserService implements IUserService {
     }
   }
 
-  async update (req: Request): Promise<void> {
-    const { id } = req.body
-    const { name, email } = req.body.data
+  async update (id: string, data: UserEntity): Promise<void> {
+    const { name, email } = data
     const user = await this.userRepository.getUser(id)
     if (user !== undefined && user !== null) {
       if (name !== undefined && name !== null) {
@@ -53,8 +50,7 @@ class UserService implements IUserService {
     }
   }
 
-  async delete (req: Request): Promise<void> {
-    const { id } = req.params
+  async delete (id: string): Promise<void> {
     const user = await this.userRepository.getUser(id)
     if (user !== undefined && user !== null) {
       await this.userRepository.delete(id)
