@@ -1,10 +1,9 @@
-import { type Request } from 'express'
 import type UserEntity from '../entities/UserEntity'
 
 export interface IUserService {
-  create: (req: Request) => Promise<void>
-  getUser: (req: Request) => Promise<UserEntity | undefined>
+  create: (user: UserEntity) => Promise<void>
+  getUser: (id: string) => Promise<UserEntity | undefined>
   getAll: () => Promise<UserEntity[] | undefined>
-  update: (req: Request) => Promise<void>
-  delete: (req: Request) => Promise<void>
+  update: (id: string, data: UserEntity) => Promise<void>
+  delete: (id: string) => Promise<void>
 }
