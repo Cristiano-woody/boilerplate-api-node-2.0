@@ -1,6 +1,6 @@
 import { type IUserService } from '../interfaces/IUserService'
 import { type IUserRepository } from '../interfaces/IUserRepository'
-import UserEntity from '../entities/UserEntity'
+import type UserEntity from '../entities/UserEntity'
 
 class UserService implements IUserService {
   private readonly userRepository: IUserRepository
@@ -10,15 +10,14 @@ class UserService implements IUserService {
   }
 
   async create (user: UserEntity): Promise<void> {
-    if (user !== undefined && user !== null) {
-      const User = new UserEntity(user)
-      await this.userRepository.create(User)
+    if (user.name !== undefined && user.name !== null && user.email !== undefined && user.email !== null) {
+      await this.userRepository.create(user)
     } else {
       throw new Error('User body is missing')
     }
   }
 
-  async getUser (id: string): Promise<UserEntity | undefined> {
+  async getUser (id: string): Promise<UserEntity | null> {
     const user = await this.userRepository.getUser(id)
     if (user !== undefined && user !== null) {
       return user
