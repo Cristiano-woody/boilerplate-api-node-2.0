@@ -38,7 +38,7 @@ class UserController implements IUserController {
 
   async update (req: Request, res: Response): Promise<Response> {
     try {
-      await this.userService.update(req.params.id, req.body.user)
+      await this.userService.update(req.params.id, req.body.data)
       return res.status(200).send('user updated successfully')
     } catch (err) {
       return res.status(400).send(err)

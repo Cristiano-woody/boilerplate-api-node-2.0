@@ -1,6 +1,46 @@
-comand to migrate prisma 
+/// comand to migrate prisma /// 
 
 npx prisma migrate dev --name userMigrate
 
-///////
 
+//////////////////////////////////////////
+
+
+how to make requests? 
+
+// save User // 
+
+url: http://localhost:3333/user/
+method: POST
+body: {
+	"user": {
+		"name": "Cristiano",
+		"email": "Nogueira@cris.com"
+	}
+}
+
+// get user by id //
+
+url: http://localhost:3333/user/IDUSER
+method: GET
+
+// get all users //
+
+url: http://localhost:3333/user
+method: GET
+
+// delete user //
+
+url: http://localhost:3333/user/IDUSER
+method: delete
+
+// update user //
+
+url: http://localhost:3333/user/IDUSER
+method: PATCH
+body: {
+	"data": {
+		"name": "Cristiano",
+		"email": "Nogueira@cris.com"
+	}
+}
