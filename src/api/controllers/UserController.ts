@@ -14,7 +14,7 @@ class UserController implements IUserController {
       await this.userService.create(req.body.user)
       return res.status(201).send('user created successfully')
     } catch (err) {
-      return res.status(400).send(err)
+      return res.status(400).json(err)
     }
   }
 
@@ -23,7 +23,7 @@ class UserController implements IUserController {
       const user = await this.userService.getUser(req.params.id)
       return res.status(200).json(user)
     } catch (err) {
-      return res.status(400).send(err)
+      return res.status(400).json(err)
     }
   }
 
@@ -32,7 +32,7 @@ class UserController implements IUserController {
       const allUsers = await this.userService.getAll()
       return res.status(200).json(allUsers)
     } catch (err) {
-      return res.status(400).send(err)
+      return res.status(400).json(err)
     }
   }
 
@@ -41,7 +41,7 @@ class UserController implements IUserController {
       await this.userService.update(req.params.id, req.body.data)
       return res.status(200).send('user updated successfully')
     } catch (err) {
-      return res.status(400).send(err)
+      return res.status(400).json(err)
     }
   }
 
