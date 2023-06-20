@@ -1,8 +1,9 @@
 import * as express from 'express'
 import { type Router, type Request, type Response } from 'express'
 import { type IUserController } from '../interfaces/IUserController'
+import { type IUserRoutes } from '../interfaces/IUserRoutes'
 
-class UserRoutes {
+class UserRoutes implements IUserRoutes {
   public readonly routes: Router
   constructor (readonly userController: IUserController) {
     //
