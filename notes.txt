@@ -1,6 +1,6 @@
 /// comand to migrate prisma /// 
 
-npx prisma migrate dev --name userMigrate
+npx prisma migrate dev
 
 
 //////////////////////////////////////////
