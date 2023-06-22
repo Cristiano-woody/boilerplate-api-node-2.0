@@ -1,16 +1,32 @@
 import express from 'express'
+import * as dotenv from 'dotenv'
 import cors from 'cors'
 import { routes } from '..'
+import { PrismaClient } from '@prisma/client'
+
+dotenv.config()
 
 class App {
   readonly api: express.Application
-  constructor () {
+  readonly portServer: string | undefined
+  readonly prisma: PrismaClient
+  constructor (portserver: string | undefined) {
+    this.portServer = portserver
+    this.prisma = new PrismaClient()
     this.api = express()
     this.api.use(express.json())
     this.api.use(express.urlencoded({ extended: true }))
     this.api.use(routes)
     this.api.use(cors())
   }
+
+  async start (): Promise<void> {
+    await this.prisma.$connect()
+    this.api.listen(this.portServer, () => {
+      console.log(`\n 🔥 Aplicação iniciada na porta: ${this.portServer as string} 🔥`)
+    })
+  }
 }
 
-export default App
+const app = new App(process.env.PORT_API)
+void app.start()
