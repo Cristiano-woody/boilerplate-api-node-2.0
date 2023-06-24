@@ -1,12 +1,13 @@
 import UserEntity from '../entities/UserEntity'
 import { type IUserRepository } from '../interfaces/IUserRepository'
-import { PrismaClient } from '@prisma/client'
+import { type PrismaClient } from '@prisma/client'
+import { prisma } from '../../db/PrismaClient'
 
 class UserRepository implements IUserRepository {
   private readonly prisma: PrismaClient
 
   constructor () {
-    this.prisma = new PrismaClient()
+    this.prisma = prisma
   }
 
   async create (user: UserEntity): Promise<void> {
