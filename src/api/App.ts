@@ -2,7 +2,8 @@ import express from 'express'
 import * as dotenv from 'dotenv'
 import cors from 'cors'
 import { routes } from '..'
-import { PrismaClient } from '@prisma/client'
+import { type PrismaClient } from '@prisma/client'
+import { prisma } from '../db/PrismaClient'
 
 dotenv.config()
 
@@ -12,7 +13,7 @@ class App {
   readonly prisma: PrismaClient
   constructor (portserver: string | undefined) {
     this.portServer = portserver
-    this.prisma = new PrismaClient()
+    this.prisma = prisma
     this.api = express()
     this.api.use(express.json())
     this.api.use(express.urlencoded({ extended: true }))
