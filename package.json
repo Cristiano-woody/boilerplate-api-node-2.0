@@ -16,7 +16,7 @@
     "typescript": "*"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "vitest",
     "dev": "tsnd --transpile-only --respawn --ignore-watch node_modules src/api/App.ts"
   },
   "author": "Cristiano-woody <cristiano.nog.woody@gmail.com>",
