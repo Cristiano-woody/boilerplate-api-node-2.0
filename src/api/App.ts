@@ -1,7 +1,7 @@
 import express from 'express'
 import * as dotenv from 'dotenv'
 import cors from 'cors'
-import { routes } from '..'
+import { routes } from '.'
 import { type PrismaClient } from '@prisma/client'
 import { prisma } from '../db/PrismaClient'
 
