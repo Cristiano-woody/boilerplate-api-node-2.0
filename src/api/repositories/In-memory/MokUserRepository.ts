@@ -1,15 +1,8 @@
 
-import type UserEntity from '../entities/UserEntity'
-import { type IUserRepository } from '../interfaces/IUserRepository'
-import { PrismaClient } from '@prisma/client'
+import type UserEntity from '../../entities/UserEntity'
+import { type IUserRepository } from '../../interfaces/IUserRepository'
 
 class MokUserRepository implements IUserRepository {
-  private readonly prisma: PrismaClient
-
-  constructor () {
-    this.prisma = new PrismaClient()
-  }
-
   async create (user: UserEntity): Promise<void> {
     console.log('creating user')
   }
