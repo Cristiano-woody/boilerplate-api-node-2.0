@@ -1,7 +1,7 @@
-import UserRepository from './api/repositories/UserRepository'
-import UserService from './api/services/UserService'
-import UserController from './api/controllers/UserController'
-import UserRoutes from './api/routes/UserRoutes'
+import UserRepository from './repositories/UserRepository'
+import UserService from './services/UserService'
+import UserController from './controllers/UserController'
+import UserRoutes from './routes/UserRoutes'
 // import MokUserRepository from './api/repositories/MokUserRepository'
 
 // instanciando as classes e injetando dependencias
