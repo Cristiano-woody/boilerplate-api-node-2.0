@@ -1,7 +1,7 @@
 import express from 'express'
 import * as dotenv from 'dotenv'
 import cors from 'cors'
-import { routes } from '.'
+import { userRoutes } from '.'
 import { type PrismaClient } from '@prisma/client'
 import { prisma } from '../db/PrismaClient'
 
@@ -17,7 +17,7 @@ class App {
     this.api = express()
     this.api.use(express.json())
     this.api.use(express.urlencoded({ extended: true }))
-    this.api.use(routes)
+    this.api.use(userRoutes)
     this.api.use(cors())
   }
 
