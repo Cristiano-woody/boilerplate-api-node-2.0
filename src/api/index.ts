@@ -11,6 +11,6 @@ const CreateUserService = new UserService(CreateUserRepository)
 const CreateUserController = new UserController(CreateUserService)
 const CreateUserRoutes = new UserRoutes(CreateUserController)
 
-const routes = CreateUserRoutes.routes
+const userRoutes = CreateUserRoutes.routes
 
-export { routes }
+export { userRoutes }
