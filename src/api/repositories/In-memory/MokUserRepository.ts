@@ -39,13 +39,11 @@ class MokUserRepository {
   }
 
   async update (body: UserEntity): Promise<UserEntity | null> {
-    const User = { name: 'user1', email: 'user@gmail.com', id: 'www' }
-    return User
+    return null
   }
 
   async delete (id: string): Promise<UserEntity | null> {
-    const User = { name: 'user1', email: 'user@gmail.com', id: 'www' }
-    return User
+    return null
   }
 }
 
