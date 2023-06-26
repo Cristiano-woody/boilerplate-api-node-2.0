@@ -10,30 +10,33 @@ class UserRepository implements IUserRepository {
     this.prisma = prisma
   }
 
-  async create (user: UserEntity): Promise<void> {
+  async create (user: UserEntity): Promise<UserEntity | undefined> {
     const userEntity = new UserEntity(user)
     if (userEntity.id !== undefined) {
-      await this.prisma.user.create({
+      const user = await this.prisma.user.create({
         data: {
           name: userEntity.name,
           email: userEntity.email,
           id: userEntity.id
         }
       })
+      return user
     }
   }
 
-  async getAll (): Promise<UserEntity[] | null> {
+  async getAll (): Promise<UserEntity[]> {
     const AllUsers = await this.prisma.user.findMany()
     return AllUsers
   }
 
-  async getUser (id: string): Promise<UserEntity | null> {
+  async getUser (id: string): Promise<UserEntity | undefined> {
     const user = await this.prisma.user.findUnique({
       // eslint-disable-next-line object-shorthand
       where: { id: id }
     })
-    return user
+    if (user !== undefined && user !== null) {
+      return user
+    }
   }
 
   async getUserByEmail (email: string): Promise<UserEntity | null> {
@@ -44,7 +47,7 @@ class UserRepository implements IUserRepository {
     return user
   }
 
-  async update (body: UserEntity): Promise<UserEntity | null> {
+  async update (body: UserEntity): Promise<UserEntity | undefined> {
     const user = await this.prisma.user.update({
       where: { id: body.id },
       data: {
@@ -55,7 +58,7 @@ class UserRepository implements IUserRepository {
     return user
   }
 
-  async delete (id: string): Promise<UserEntity | null> {
+  async delete (id: string): Promise<UserEntity | undefined> {
     const user = await this.prisma.user.delete({
       // eslint-disable-next-line object-shorthand
       where: { id: id }
