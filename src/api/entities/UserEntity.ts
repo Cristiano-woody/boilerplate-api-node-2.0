@@ -9,7 +9,10 @@ class UserEntity {
   constructor (data: UserEntity) {
     this.name = data.name
     this.email = data.email
-    this.id = uuidv4()
+    this.id = data.id
+    if (data.id === undefined || data.id === null) {
+      this.id = uuidv4()
+    }
   }
 }
 
