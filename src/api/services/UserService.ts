@@ -1,16 +1,29 @@
 import { type IUserService } from '../interfaces/IUserService'
 import { type IUserRepository } from '../interfaces/IUserRepository'
 import type UserEntity from '../entities/UserEntity'
+import { type IUserValidator } from '../interfaces/IUserValidator'
 
 class UserService implements IUserService {
   private readonly userRepository: IUserRepository
+  private readonly userValidator: IUserValidator
 
-  constructor (UserRepository: IUserRepository) {
+  constructor (UserRepository: IUserRepository, UserValidator: IUserValidator) {
+    this.userValidator = UserValidator
     this.userRepository = UserRepository
   }
 
   async create (user: UserEntity): Promise<UserEntity | undefined> {
     if (user.name !== undefined && user.name !== null && user.email !== undefined && user.email !== null) {
+      const isValidEmail = this.userValidator.EmailValidator(user.email)
+      if (!isValidEmail) {
+        throw new Error('Email is not valid')
+      }
+
+      const userExist = await this.userRepository.getUserByEmail(user.email)
+      if (userExist !== undefined) {
+        throw new Error('Email already exist')
+      }
+
       const newUser = await this.userRepository.create(user)
       return newUser
     } else {
@@ -24,6 +37,15 @@ class UserService implements IUserService {
       return user
     } else {
       throw new Error(`User ${id} does not exist`)
+    }
+  }
+
+  async getUserByEmail (email: string): Promise<UserEntity | undefined> {
+    const user = await this.userRepository.getUserByEmail(email)
+    if (user !== undefined && user !== null) {
+      return user
+    } else {
+      throw new Error(`User ${email} does not exist`)
     }
   }
 
