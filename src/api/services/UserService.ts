@@ -9,9 +9,10 @@ class UserService implements IUserService {
     this.userRepository = UserRepository
   }
 
-  async create (user: UserEntity): Promise<void> {
+  async create (user: UserEntity): Promise<UserEntity | undefined> {
     if (user.name !== undefined && user.name !== null && user.email !== undefined && user.email !== null) {
-      await this.userRepository.create(user)
+      const newUser = await this.userRepository.create(user)
+      return newUser
     } else {
       throw new Error('User body is missing')
     }
