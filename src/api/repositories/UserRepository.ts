@@ -39,12 +39,14 @@ class UserRepository implements IUserRepository {
     }
   }
 
-  async getUserByEmail (email: string): Promise<UserEntity | null> {
+  async getUserByEmail (email: string): Promise<UserEntity | undefined> {
     const user = await this.prisma.user.findUnique({
       // eslint-disable-next-line object-shorthand
       where: { email: email }
     })
-    return user
+    if (user !== undefined && user !== null) {
+      return user
+    }
   }
 
   async update (body: UserEntity): Promise<UserEntity | undefined> {
