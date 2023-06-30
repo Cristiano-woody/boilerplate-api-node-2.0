@@ -30,8 +30,8 @@ class MokUserRepository implements IUserRepository {
 
   async getUserByEmail (email: string): Promise<UserEntity | undefined> {
     for (let i = 0; i <= this.users.length; i++) {
-      const idUser = this.users[i].email
-      if (idUser === email) {
+      const User = this.users[i].email
+      if (User === email) {
         return this.users[i]
       }
     }
