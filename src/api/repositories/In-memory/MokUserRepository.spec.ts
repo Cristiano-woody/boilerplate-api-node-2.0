@@ -19,9 +19,12 @@ describe('Mok User Repository', () => {
   })
 
   it('shold be able to get a user by id', async () => {
-    const user = await mokUserRepository.create({ name: 'John', email: 'john@example.com', id: '1234test' })
-    const foundUser = await mokUserRepository.getUserByEmail(user.email)
-    expect(foundUser).toBeInstanceOf(UserEntity)
+    const user = new UserEntity({ name: 'John', email: 'john@example.com' })
+    await mokUserRepository.create(user)
+    if (user.id !== undefined) {
+      const foundUser = await mokUserRepository.getUser(user.id)
+      expect(foundUser).toBeInstanceOf(UserEntity)
+    }
   })
 
   it('shold be able to get all users', async () => {
