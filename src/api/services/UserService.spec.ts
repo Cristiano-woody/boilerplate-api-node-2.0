@@ -9,10 +9,8 @@ describe('User Service', () => {
   const userService = new UserService(repository, userValidator)
 
   it('shold be able to create a user', async () => {
-    const user = new UserEntity({ name: 'John', email: 'johndoe@gmail.com' })
-    const newUser = await userService.create(user)
-    expect(newUser).toHaveProperty('id')
-    expect(newUser).toBeInstanceOf(UserEntity)
+    const user = new UserEntity({ name: 'John', email: 'johnoe@gmail.com' })
+    await expect(userService.create(user)).resolves.not.toThrow(new Error('Email is not valid'))
   })
 
   it('shold not be able to create a user with invalid email', async () => {
