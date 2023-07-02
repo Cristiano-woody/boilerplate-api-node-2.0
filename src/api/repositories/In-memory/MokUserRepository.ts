@@ -9,10 +9,9 @@ class MokUserRepository implements IUserRepository {
     this.users = []
   }
 
-  async create (user: UserEntity): Promise<UserEntity> {
+  async create (user: UserEntity): Promise<void> {
     const newUser = new UserEntity(user)
     this.users.push(newUser)
-    return newUser
   }
 
   async getAll (): Promise<UserEntity[]> {
@@ -37,12 +36,10 @@ class MokUserRepository implements IUserRepository {
     }
   }
 
-  async update (body: UserEntity): Promise<UserEntity | undefined> {
-    return undefined
+  async update (body: UserEntity): Promise<void> {
   }
 
-  async delete (id: string): Promise<UserEntity | undefined> {
-    return undefined
+  async delete (id: string): Promise<void> {
   }
 }
 
