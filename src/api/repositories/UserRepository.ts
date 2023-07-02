@@ -10,17 +10,16 @@ class UserRepository implements IUserRepository {
     this.prisma = prisma
   }
 
-  async create (user: UserEntity): Promise<UserEntity | undefined> {
+  async create (user: UserEntity): Promise<void> {
     const userEntity = new UserEntity(user)
     if (userEntity.id !== undefined) {
-      const user = await this.prisma.user.create({
+      await this.prisma.user.create({
         data: {
           name: userEntity.name,
           email: userEntity.email,
           id: userEntity.id
         }
       })
-      return user
     }
   }
 
@@ -49,23 +48,21 @@ class UserRepository implements IUserRepository {
     }
   }
 
-  async update (body: UserEntity): Promise<UserEntity | undefined> {
-    const user = await this.prisma.user.update({
+  async update (body: UserEntity): Promise<void> {
+    await this.prisma.user.update({
       where: { id: body.id },
       data: {
         name: body.name,
         email: body.email
       }
     })
-    return user
   }
 
-  async delete (id: string): Promise<UserEntity | undefined> {
-    const user = await this.prisma.user.delete({
+  async delete (id: string): Promise<void> {
+    await this.prisma.user.delete({
       // eslint-disable-next-line object-shorthand
       where: { id: id }
     })
-    return user
   }
 }
 
