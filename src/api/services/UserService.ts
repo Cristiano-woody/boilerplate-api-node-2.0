@@ -12,7 +12,7 @@ class UserService implements IUserService {
     this.userRepository = UserRepository
   }
 
-  async create (user: UserEntity): Promise<UserEntity | undefined> {
+  async create (user: UserEntity): Promise<void> {
     if (user.name !== undefined && user.name !== null && user.email !== undefined && user.email !== null) {
       const isValidEmail = this.userValidator.EmailValidator(user.email)
       if (!isValidEmail) {
@@ -24,8 +24,7 @@ class UserService implements IUserService {
         throw new Error('Email already exist')
       }
 
-      const newUser = await this.userRepository.create(user)
-      return newUser
+      await this.userRepository.create(user)
     } else {
       throw new Error('User body is missing')
     }
