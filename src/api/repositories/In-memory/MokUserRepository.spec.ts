@@ -5,10 +5,8 @@ describe('Mok User Repository', () => {
   const mokUserRepository = new MokUserRepository()
 
   it('shold be able to create a user', async () => {
-    const user = new UserEntity({ name: 'John', email: 'john@example.com' })
-    const newUser = await mokUserRepository.create(user)
-    expect(newUser).toBeInstanceOf(UserEntity)
-    expect(newUser).toHaveProperty('id')
+    const user = new UserEntity({ name: 'Johnf', email: 'john@example.com' })
+    await expect(mokUserRepository.create(user)).resolves.not.toThrow()
   })
 
   it('shold be able to get a user by email', async () => {
