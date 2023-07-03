@@ -7,7 +7,6 @@ import UserValidator from './validators/UserValidator'
 
 // instanciando as classes e injetando dependencias
 const CreateUserRepository = new UserRepository()
-// const CreateMokUserRepository = new MokUserRepository()
 const userValidator = new UserValidator()
 const CreateUserService = new UserService(CreateUserRepository, userValidator)
 const CreateUserController = new UserController(CreateUserService)
