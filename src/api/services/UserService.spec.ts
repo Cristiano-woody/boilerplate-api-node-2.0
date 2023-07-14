@@ -61,4 +61,17 @@ describe('get all users', () => {
     const allUsers = await userService.getAll()
     expect(Array.isArray(allUsers)).toBe(true)
   })
+  // delete user
+  it('shold be able to delete a user', async () => {
+    await userService.create({ name: 'user', email: 'user@kkkkk.com' })
+    const user = await userService.getUserByEmail('user@kkkkk.com')
+    if (user !== undefined) {
+      if (user.id !== undefined) {
+        await expect(userService.delete(user.id)).resolves.not.toThrow()
+      }
+    }
+  })
+  it('shold not be ablo to delete user', async () => {
+    await expect(userService.delete('idqualquer')).rejects.toEqual(new Error('User not exist'))
+  })
 })
